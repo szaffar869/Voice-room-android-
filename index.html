@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ur">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice Room — Prototype</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eee;color:#111;font-family:Arial,sans-serif}
+.phone{max-width:420px;min-height:100vh;margin:auto;background:#fff;padding:24px 18px;display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd;padding-bottom:16px}
+.logo{font-weight:800;font-size:20px;letter-spacing:1px}.tag{font-size:11px;color:#666}
+h1{font-size:25px;margin:28px 0 8px}p{color:#666;line-height:1.5}
+input{width:100%;padding:15px;border:1px solid #bbb;border-radius:12px;font-size:16px;margin:8px 0 14px}
+button{border:0;border-radius:12px;padding:15px 18px;background:#111;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+button.secondary{background:#eee;color:#111;border:1px solid #ccc}
+.screen{display:none}.screen.active{display:block}.room{border:1px solid #ddd;border-radius:14px;padding:16px;margin:12px 0;display:flex;justify-content:space-between;align-items:center}
+.room b{display:block;margin-bottom:5px}.muted{color:#777;font-size:13px}.circle{width:78px;height:78px;border-radius:50%;background:#eee;display:grid;place-items:center;margin:28px auto;font-size:27px}
+.controls{display:flex;gap:10px;margin-top:20px}.controls button{flex:1}
+footer{margin-top:auto;text-align:center;color:#999;font-size:11px;padding-top:28px}
+</style>
+</head>
+<body>
+<div class="phone">
+<header><div class="logo">VOICE ROOM</div><div class="tag">BLACK • WHITE</div></header>
+
+<section id="signup" class="screen active">
+<h1>اپنا اکاؤنٹ بنائیں</h1><p>شروع کرنے کے لیے صرف دو چیزیں درج کریں۔</p>
+<label>Display name</label><input id="displayName" placeholder="مثلاً Shahbaz">
+<label>Username</label><input id="userName" placeholder="مثلاً shahbaz123">
+<button style="width:100%" onclick="enterApp()">آگے جائیں</button>
+</section>
+
+<section id="rooms" class="screen">
+<h1>وائس رومز</h1><p id="welcome">خوش آمدید</p>
+<div class="room"><div><b>دوستانہ گفتگو</b><span class="muted">3 لوگ موجود ہیں</span></div><button onclick="joinRoom()">Join</button></div>
+<div class="room"><div><b>عام گپ شپ</b><span class="muted">1 شخص موجود ہے</span></div><button onclick="joinRoom()">Join</button></div>
+<div class="room"><div><b>نیا روم</b><span class="muted">نمونہ روم</span></div><button onclick="joinRoom()">Join</button></div>
+</section>
+
+<section id="voice" class="screen">
+<h1>دوستانہ گفتگو</h1><p class="muted">وائس روم کا ڈیمو</p>
+<div class="circle">🎙</div>
+<p style="text-align:center">آپ روم میں شامل ہیں</p>
+<div class="controls"><button id="mic" class="secondary" onclick="toggleMic()">Mic بند کریں</button><button onclick="show('rooms')">روم چھوڑیں</button></div>
+</section>
+<footer>ابتدائی ڈیمو — اصل آن لائن وائس چیٹ ابھی منسلک نہیں</footer>
+</div>
+<script>
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function enterApp(){let n=document.getElementById('displayName').value.trim(),u=document.getElementById('userName').value.trim();if(!n||!u){alert('براہِ کرم دونوں خانے پُر کریں');return}document.getElementById('welcome').textContent='خوش آمدید، '+n+' (@'+u+')';show('rooms')}
+function joinRoom(){show('voice')}
+let on=true;function toggleMic(){on=!on;document.getElementById('mic').textContent=on?'Mic بند کریں':'Mic آن کریں'}
+</script>
+</body></html>
